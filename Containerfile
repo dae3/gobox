@@ -6,9 +6,9 @@ LABEL com.github.containers.toolbox="true" \
       maintainer="deverett@gmail.com"
 
 COPY extra-packages /
-RUN apk update && \
-    apk upgrade && \
-    grep -v '^#' /extra-packages | xargs apk add
+RUN apt update -y && \
+    apt upgrade -y && \
+    grep -v '^#' /extra-packages | xargs apt add -y
 RUN rm /extra-packages
 
 RUN   ln -fs /bin/sh /usr/bin/sh && \
