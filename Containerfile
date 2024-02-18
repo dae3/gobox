@@ -9,8 +9,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 COPY extra-packages /
 RUN apt-get update -y && \
-    apt-get upgrade -y && \
-    grep -v '^#' /extra-packages | xargs apt-get add -y
+    grep -v '^#' /extra-packages | xargs apt-get install -y
 RUN rm /extra-packages
 
 RUN   ln -fs /bin/sh /usr/bin/sh && \
@@ -19,6 +18,8 @@ RUN   ln -fs /bin/sh /usr/bin/sh && \
       ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/podman && \
       ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/rpm-ostree && \
       ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/transactional-update
+
+RUN sed -i 's/^#\s\+\(en_AU\.UTF-8 UTF-8\)/\1/' /etc/locale.gen && locale-gen
 
 RUN echo 'GOPATH=/usr/local/go' >> /etc/environment
 RUN curl -sfL https://go.dev/dl/go1.22.0.linux-amd64.tar.gz | tar -C /usr/local -zxf
