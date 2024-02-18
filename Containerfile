@@ -5,10 +5,12 @@ LABEL com.github.containers.toolbox="true" \
       summary="A cloud-native terminal experience" \
       maintainer="deverett@gmail.com"
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 COPY extra-packages /
-RUN apt update -y && \
-    apt upgrade -y && \
-    grep -v '^#' /extra-packages | xargs apt add -y
+RUN apt-get update -y && \
+    apt-get upgrade -y && \
+    grep -v '^#' /extra-packages | xargs apt-get add -y
 RUN rm /extra-packages
 
 RUN   ln -fs /bin/sh /usr/bin/sh && \
