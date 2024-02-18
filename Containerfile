@@ -26,3 +26,4 @@ RUN chsh -s $(which zsh) user
 RUN curl -fL https://go.dev/dl/go1.22.0.linux-amd64.tar.gz | tar -C /usr/local -zxf -
 RUN chown -R user /usr/local/go
 RUN PATH=/usr/local/go/bin GOPATH=/usr/local/go go install github.com/go-delve/delve/cmd/dlv@latest
+RUN PATH=/usr/local/go/bin GOPATH=/usr/local/go go install golang.org/x/tools/gopls@latest
